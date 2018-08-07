@@ -17,53 +17,20 @@
 
 1. 极速截图转图片链接
 
-<img src="http://7sbqce.com1.z0.glb.clouddn.com/markdownmarkdownimg.gif" width="660" />
 
 2. 极速本地图片转图片链接
 
-![本地图片转图片链接](http://7xp3xc.com1.z0.glb.clouddn.com/201602markdown_img_local.gif)
 
 ##  特性
 
 - 直接将图片粘贴为markdown支持的图片链接
-- 支持retina的截图处理，在非retina的显示器上不会变大
 - 自动图片上传，失败通知栏通知
-- 支持多种截图格式，压缩过大图片
 - 方便的图片上传工具 
 
 ## 使用
 
 ### 依赖
 
-由于七牛SDK使用了`requests`库进行网络请求，所以，**首先得安装python的`request`库**；推荐使用pip进行安装。
-
-### 设置七牛图床
-#### 注册七牛
-选择使用七牛的图床，没有账号的话先[注册](https://portal.qiniu.com/signup?code=3ldifp9oti442);
-
-#### 新建图床
-注册成功之后登陆，先新建一个图床：在左上角选择**新建空间**
-
-<img src="http://7sbqce.com1.z0.glb.clouddn.com/markdown/1447222213451.png" width="271"/>
-
-记下这个名字，比如：booluimg
-
-#### 图床访问地址
-新建空间之后，进入空间设置，点击左边的**域名设置**，记下你的图床对外的域名：
-
-<img src="http://7sbqce.com1.z0.glb.clouddn.com/markdown/1447222404913.png" width="960"/>
-
-#### 图床的Ak和SK
-要使用七牛SDK来访问图床，需要拿到图床的Access Key以及Secret Key；点击右上角你的用户名，选择账号设置：
-
-<img src="http://7sbqce.com1.z0.glb.clouddn.com/markdown/1447222540299.png" width="164"/>
-
-然后，点击左边的**密钥**就可以看到你的**AK**以及**SK**
-
-以上图床的信息拿到之后，在alfred里面输入mdimgsetup,就会弹出一个文本文档，如下：
-<img src="http://7sbqce.com1.z0.glb.clouddn.com/markdown/1447222708345.png" width="256"/>
-
-设置你的七牛图床的信息，AK，SK是访问密钥，url是上面配置的图床访问地址，bucket是空间名字，prefix是图床上传的前缀，这个可以随意配置，作为分类使用，比如我的时markdown
 
 ### 使用
 

@@ -44,6 +44,58 @@
 				<false/>
 			</dict>
 		</array>
+		<key>A2F9CEE3-9D3C-4E97-A5ED-DF3291610B7C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DE2E602F-313F-4D10-849E-78A4B46F5EAD</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>EA346044-4CD8-4752-8DE1-73CEFFDBFAAA</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>juforg</string>
@@ -63,22 +115,13 @@
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>script</key>
-				<string># coding: utf-8
-from clipboard import get_paste_img_file
-import util
-import os
-import subprocess
-import sys
-import time
-query = "{query}"
-img_file, need_format, format = get_paste_img_file()
-sys.stdout.write(query)</string>
+				<string>python wntc.py "{query}" {var:vardate}</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
@@ -125,6 +168,10 @@ sys.stdout.write(query)</string>
 				<string>{query}</string>
 				<key>variables</key>
 				<dict>
+					<key>vardate</key>
+					<string>{date:short}</string>
+					<key>vartime</key>
+					<string>{time}</string>
 					<key>yuncode</key>
 					<string>{query}</string>
 				</dict>
@@ -133,6 +180,27 @@ sys.stdout.write(query)</string>
 			<string>alfred.workflow.utility.argument</string>
 			<key>uid</key>
 			<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>wn</string>
+				<key>subtext</key>
+				<string>自动上传剪贴板图片</string>
+				<key>text</key>
+				<string>万能图床</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>DE2E602F-313F-4D10-849E-78A4B46F5EAD</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -153,9 +221,54 @@ sys.stdout.write(query)</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>tc</string>
+				<key>subtext</key>
+				<string>自动上传剪贴板图片</string>
+				<key>text</key>
+				<string>万能图床</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>A2F9CEE3-9D3C-4E97-A5ED-DF3291610B7C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>{var:keyword}</string>
+				<key>subtext</key>
+				<string>本workflow configuration设置的关键字</string>
+				<key>text</key>
+				<string>万能图床</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>EA346044-4CD8-4752-8DE1-73CEFFDBFAAA</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
-	<string>无论用哪个工具截图后，在剪贴板中都有这个图片的二进制信息，把这个二进制信息自动上传到各大图床平台上</string>
+	<string>无论用哪个工具截图后，在剪贴板中都有这个图片的二进制信息，把这个二进制信息自动上传到各大图床平台上
+目前支持的云有  阿里云(oss)腾讯云(cos)
+
+favor_yun 配置最喜欢的云代码 如：oss</string>
 	<key>uidata</key>
 	<dict>
 		<key>2AD8D366-9A61-4E49-B504-A38B2270A457</key>
@@ -168,23 +281,47 @@ sys.stdout.write(query)</string>
 		<key>8A455598-2D3E-4F17-B286-D7A58AB04A3C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>600</integer>
 			<key>ypos</key>
-			<integer>240</integer>
+			<integer>280</integer>
 		</dict>
 		<key>998E6417-75A5-4F99-AF80-4465E34811E7</key>
 		<dict>
 			<key>xpos</key>
-			<integer>270</integer>
+			<integer>340</integer>
 			<key>ypos</key>
-			<integer>110</integer>
+			<integer>210</integer>
+		</dict>
+		<key>A2F9CEE3-9D3C-4E97-A5ED-DF3291610B7C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>90</integer>
+			<key>ypos</key>
+			<integer>370</integer>
+		</dict>
+		<key>DE2E602F-313F-4D10-849E-78A4B46F5EAD</key>
+		<dict>
+			<key>xpos</key>
+			<integer>90</integer>
+			<key>ypos</key>
+			<integer>230</integer>
 		</dict>
 		<key>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</key>
 		<dict>
 			<key>xpos</key>
-			<integer>440</integer>
+			<integer>500</integer>
 			<key>ypos</key>
 			<integer>80</integer>
+		</dict>
+		<key>EA346044-4CD8-4752-8DE1-73CEFFDBFAAA</key>
+		<dict>
+			<key>note</key>
+			<string>自定义关键字
+自己在右上角[X] 中配置的keyword 触发本工作流</string>
+			<key>xpos</key>
+			<integer>90</integer>
+			<key>ypos</key>
+			<integer>500</integer>
 		</dict>
 	</dict>
 	<key>variables</key>
@@ -199,14 +336,18 @@ sys.stdout.write(query)</string>
 		<string>AKIDurgMrBPF9vgFdpcyytdExX3S0ZBc3uNt</string>
 		<key>cos_secret_key</key>
 		<string>gFnEUaUCicQ6as0GtcDctz1sqfcOIBxc</string>
+		<key>favor_yun</key>
+		<string>oss</string>
+		<key>keyword</key>
+		<string>wntc</string>
 		<key>oss.AccessKeyId</key>
 		<string>a0yPloym0g6sXsyC</string>
 		<key>oss.AccessKeySecret</key>
 		<string>cVm1WlvFNueSSEsIg9qQ3ORzQw6wwa</string>
 		<key>oss.bucket_name</key>
-		<string></string>
+		<string>wntc</string>
 		<key>oss.endpoint</key>
-		<string>oss-cn-shanghai.aliyuncs.com</string>
+		<string>http://oss-cn-shanghai.aliyuncs.com</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>

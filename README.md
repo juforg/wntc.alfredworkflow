@@ -9,9 +9,39 @@
 图片上传到图床之后，会自动把上传返回的链接放置到系统剪切版上，同时它对markdown格式有特殊的支持；整个过程只需要两步：
 
 1. 截图/复制本地图片/复制网络图片链接
-2. 快捷键 `cmd + ctrl + v` 进行上传
+2. 快捷键 `cmd + opt + p` 进行上传
 
 上传完成之后，返回的图片链接自动放入到系统剪切版中，可以直接使用`cmd + V` 使用。
+
+## 运行环境
+
+- macOs 10.13.6
+- alfred v3.6.2 开通PowerPack
+- python 2.7  mac系统默认
+- python依赖库
+    - PyObjC
+    - cos-python-sdk-v5
+    - oss2
+    - requests
+
+
+## 配置说明
+![](http://wntc.oss-cn-shanghai.aliyuncs.com/2018/8/8/1533723079124.png)
+
+|name|说明|
+|--|--|
+|debug|是否开启debug模式（会弹出多余信息）|
+|keyword|自定义关键字启动万能图床|
+|favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里|
+|cos_bucket_name|腾讯云存储桶名称|
+|cos_is_cdn||
+|cos_region||
+|cos_secret_id||
+|cos_secret_key||
+|oss.AccessKeyId||
+|oss.AccessKeySecret||
+|oss.bucket_name||
+|oss.endpoint||
 
 ## 预览
 

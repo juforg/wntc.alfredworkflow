@@ -2,10 +2,22 @@
 import os
 import pip
 import imp
+import requests
 
-def notice(msg, title="万能图床",subtitle=''):
+"""
+oss 阿里云配置
+"""
+AccessKeyId = os.getenv('oss.AccessKeyId')
+AccessKeySecret = os.getenv('oss.AccessKeySecret')
+bucket_name = os.getenv('oss.bucket_name')
+endpoint = os.getenv('oss.endpoint')
+endpointurl = "http://%s" % endpoint
+debug = os.getenv('debug')=="True" and True or False
+
+def notice(msg, title="【万能图床】提示", subtitle=''):
     ''' notoce message in notification center'''
-    os.system('osascript -e \'display notification "%s" with title "%s" subtitle “%s”\'' % (msg, title,subtitle))
+    os.system('osascript -e \'display notification "%s" with title "%s"\'' % (msg, title))
+
 
 def install_and_load(package):
     pip.main(['install', package])
@@ -13,33 +25,37 @@ def install_and_load(package):
     f, fname, desc = imp.find_module(package)
     return imp.load_module(package, f, fname, desc)
 
+
 """
 检查指定云是否配置正确
 """
+
+
 def checkConfig(yuncode):
-    if('oss' == yuncode):
+    if 'oss' == yuncode:
         return checkOssConfig()
-    elif('cos'== yuncode):
+    elif yuncode == 'cos':
         return checkCosConfig()
+    else:
+        return False
+
 
 """
 获取所以配置正确的云code
 """
+
+
 def getAllConfiged():
     list = []
-    if(checkOssConfig()):
+    if (checkOssConfig()):
         list.append('oss')
-    if(checkCosConfig()):
+    if (checkCosConfig()):
         list.append('cos')
     return list
 
 
 def checkOssConfig():
-    AccessKeyId = os.getenv('oss.AccessKeyId')
-    AccessKeySecret = os.getenv('oss.AccessKeySecret')
-    bucket_name = os.getenv('oss.bucket_name')
-    endpoint = os.getenv('oss.endpoint')
-    if(AccessKeyId is not None
+    if (AccessKeyId is not None
             and AccessKeySecret is not None
             and bucket_name is not None
             and endpoint is not None
@@ -48,13 +64,14 @@ def checkOssConfig():
     else:
         return False
 
+
 def checkCosConfig():
     cos_bucket_name = os.getenv('cos_bucket_name')
     cos_is_cdn = os.getenv('cos_is_cdn')
     cos_region = os.getenv('cos_region')
     cos_secret_id = os.getenv('cos_secret_id')
     cos_secret_key = os.getenv('cos_secret_key')
-    if(cos_bucket_name is not None
+    if (cos_bucket_name is not None
             and cos_is_cdn is not None
             and cos_region is not None
             and cos_secret_id is not None
@@ -63,6 +80,26 @@ def checkCosConfig():
         return True
     else:
         return False
+
+
+"""
+上传到阿里云
+"""
+def uploadOssObj(objtype, name, obj):
+    try:
+        import oss2
+    except:
+        oss2 = install_and_load('oss2')
+    auth = oss2.Auth(AccessKeyId, AccessKeySecret)
+    bucket = oss2.Bucket(auth, endpointurl, bucket_name)
+    if debug : notice("上传到阿里云！%s %s" % (endpointurl,bucket_name))
+    if ('localfile' == objtype):
+        bucket.put_object_from_file(name, obj)
+    elif 'url' == objtype:
+        input = requests.get(obj)
+        bucket.put_object(name, input)
+def getOssMKurl(upload_name):
+    return '![](http://%s.%s/%s)' % (bucket_name,endpoint,upload_name)
 
 if __name__ == "__main__":
     try:

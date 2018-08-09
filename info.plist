@@ -8,6 +8,19 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
+		<key>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>2AD8D366-9A61-4E49-B504-A38B2270A457</key>
 		<array>
 			<dict>
@@ -21,11 +34,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>998E6417-75A5-4F99-AF80-4465E34811E7</key>
+		<key>635B6602-02AB-4983-BD28-9246A16767DE</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</string>
+				<string>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -33,9 +46,25 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+		</array>
+		<key>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</key>
+		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
+				<string>5C371D2A-F080-4EAC-A91C-B9735DAAFC91</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>998E6417-75A5-4F99-AF80-4465E34811E7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -74,6 +103,16 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
+				<string>635B6602-02AB-4983-BD28-9246A16767DE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
 				<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
 				<key>modifiers</key>
 				<integer>0</integer>
@@ -110,29 +149,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>68</integer>
-				<key>script</key>
-				<string>python wntc.py "{query}" {var:vardate}</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>action</key>
 				<integer>0</integer>
 				<key>argument</key>
@@ -164,24 +180,53 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
 				<string>{query}</string>
-				<key>variables</key>
-				<dict>
-					<key>vardate</key>
-					<string>{date:short}</string>
-					<key>vartime</key>
-					<string>{time}</string>
-					<key>yuncode</key>
-					<string>{query}</string>
-				</dict>
+				<key>title</key>
+				<string>图片URL已经复制到剪贴板</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
+			<string>5C371D2A-F080-4EAC-A91C-B9735DAAFC91</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>import sys
+import re
+query = """
+{query}
+"""
+l = re.findall('(?&lt;=\().+?(?=\))',query,re.I)
+if l.__len__() &gt;0:
+	sys.stdout.write(l[0])</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -207,17 +252,79 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>'{query}', {allvars}</string>
-				<key>cleardebuggertext</key>
+				<key>concurrently</key>
 				<false/>
-				<key>processoutputs</key>
-				<true/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>python wntc.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.debug</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
+			<string>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>inputstring</key>
+				<string>{query}</string>
+				<key>matchcasesensitive</key>
+				<false/>
+				<key>matchmode</key>
+				<integer>2</integer>
+				<key>matchstring</key>
+				<string>!\[.*\]\((.+)\)</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.filter</string>
+			<key>uid</key>
+			<string>635B6602-02AB-4983-BD28-9246A16767DE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict>
+					<key>vardate</key>
+					<string>{date:short}</string>
+					<key>vartime</key>
+					<string>{time}</string>
+					<key>yuncode</key>
+					<string>{query}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>998E6417-75A5-4F99-AF80-4465E34811E7</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -263,14 +370,49 @@
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>'{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>无论用哪个工具截图后，在剪贴板中都有这个图片的二进制信息，把这个二进制信息自动上传到各大图床平台上
 目前支持的云有  阿里云(oss)腾讯云(cos)
 
-favor_yun 配置最喜欢的云代码 如：oss</string>
+debug|是否开启debug模式（会弹出多余信息）|
+keyword|自定义关键字启动万能图床|
+favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里如：oss|
+cos_bucket_name|腾讯云存储桶名称|
+cos_is_cdn||
+cos_region||
+cos_secret_id||
+cos_secret_key||
+oss.AccessKeyId||
+oss.AccessKeySecret||
+oss.bucket_name||
+oss.endpoint||</string>
 	<key>uidata</key>
 	<dict>
+		<key>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</key>
+		<dict>
+			<key>xpos</key>
+			<integer>600</integer>
+			<key>ypos</key>
+			<integer>220</integer>
+		</dict>
 		<key>2AD8D366-9A61-4E49-B504-A38B2270A457</key>
 		<dict>
 			<key>xpos</key>
@@ -278,19 +420,40 @@ favor_yun 配置最喜欢的云代码 如：oss</string>
 			<key>ypos</key>
 			<integer>80</integer>
 		</dict>
+		<key>5C371D2A-F080-4EAC-A91C-B9735DAAFC91</key>
+		<dict>
+			<key>xpos</key>
+			<integer>860</integer>
+			<key>ypos</key>
+			<integer>210</integer>
+		</dict>
+		<key>635B6602-02AB-4983-BD28-9246A16767DE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>520</integer>
+			<key>ypos</key>
+			<integer>330</integer>
+		</dict>
+		<key>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>770</integer>
+			<key>ypos</key>
+			<integer>330</integer>
+		</dict>
 		<key>8A455598-2D3E-4F17-B286-D7A58AB04A3C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>600</integer>
+			<integer>660</integer>
 			<key>ypos</key>
-			<integer>280</integer>
+			<integer>500</integer>
 		</dict>
 		<key>998E6417-75A5-4F99-AF80-4465E34811E7</key>
 		<dict>
 			<key>xpos</key>
-			<integer>340</integer>
+			<integer>280</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>330</integer>
 		</dict>
 		<key>A2F9CEE3-9D3C-4E97-A5ED-DF3291610B7C</key>
 		<dict>
@@ -309,9 +472,9 @@ favor_yun 配置最喜欢的云代码 如：oss</string>
 		<key>E117BAD6-E9A8-4553-B6B7-8E87A4BB8644</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>350</integer>
 			<key>ypos</key>
-			<integer>80</integer>
+			<integer>300</integer>
 		</dict>
 		<key>EA346044-4CD8-4752-8DE1-73CEFFDBFAAA</key>
 		<dict>
@@ -327,34 +490,39 @@ favor_yun 配置最喜欢的云代码 如：oss</string>
 	<key>variables</key>
 	<dict>
 		<key>cos_bucket_name</key>
-		<string>wntc-1251220317</string>
+		<string></string>
 		<key>cos_is_cdn</key>
 		<string>true</string>
 		<key>cos_region</key>
 		<string>ap-shanghai</string>
 		<key>cos_secret_id</key>
-		<string>AKIDurgMrBPF9vgFdpcyytdExX3S0ZBc3uNt</string>
+		<string></string>
 		<key>cos_secret_key</key>
-		<string>gFnEUaUCicQ6as0GtcDctz1sqfcOIBxc</string>
+		<string></string>
+		<key>debug</key>
+		<string>False</string>
 		<key>favor_yun</key>
 		<string>oss</string>
 		<key>keyword</key>
 		<string>wntc</string>
 		<key>oss.AccessKeyId</key>
-		<string>a0yPloym0g6sXsyC</string>
+		<string></string>
 		<key>oss.AccessKeySecret</key>
-		<string>cVm1WlvFNueSSEsIg9qQ3ORzQw6wwa</string>
+		<string></string>
 		<key>oss.bucket_name</key>
-		<string>wntc</string>
+		<string></string>
 		<key>oss.endpoint</key>
-		<string>http://oss-cn-shanghai.aliyuncs.com</string>
+		<string></string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
-		<string>cos_secret_key</string>
-		<string>cos_bucket_name</string>
-		<string>cos_is_cdn</string>
 		<string>cos_secret_id</string>
+		<string>cos_bucket_name</string>
+		<string>oss.AccessKeyId</string>
+		<string>oss.AccessKeySecret</string>
+		<string>oss.endpoint</string>
+		<string>oss.bucket_name</string>
+		<string>cos_secret_key</string>
 	</array>
 	<key>version</key>
 	<string>0.0.1</string>

@@ -275,21 +275,6 @@ if l.__len__() &gt;0:
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string>{query}</string>
-				<key>variables</key>
-				<dict/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
-			<key>uid</key>
-			<string>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>inputstring</key>
 				<string>{query}</string>
 				<key>matchcasesensitive</key>
@@ -303,6 +288,21 @@ if l.__len__() &gt;0:
 			<string>alfred.workflow.utility.filter</string>
 			<key>uid</key>
 			<string>635B6602-02AB-4983-BD28-9246A16767DE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string>{query}</string>
+				<key>variables</key>
+				<dict/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>81BB8436-F1AC-4BF0-8C55-48EDB89350E1</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -352,6 +352,23 @@ if l.__len__() &gt;0:
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argument</key>
+				<string>'{query}', {allvars}</string>
+				<key>cleardebuggertext</key>
+				<false/>
+				<key>processoutputs</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.debug</string>
+			<key>uid</key>
+			<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -370,40 +387,23 @@ if l.__len__() &gt;0:
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argument</key>
-				<string>'{query}', {allvars}</string>
-				<key>cleardebuggertext</key>
-				<false/>
-				<key>processoutputs</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.debug</string>
-			<key>uid</key>
-			<string>8A455598-2D3E-4F17-B286-D7A58AB04A3C</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>无论用哪个工具截图后，在剪贴板中都有这个图片的二进制信息，把这个二进制信息自动上传到各大图床平台上
 目前支持的云有  阿里云(oss)腾讯云(cos)
 
-debug|是否开启debug模式（会弹出多余信息）|
-keyword|自定义关键字启动万能图床|
-favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里如：oss|
-cos_bucket_name|腾讯云存储桶名称|
-cos_is_cdn||
-cos_region||
-cos_secret_id||
-cos_secret_key||
-oss.AccessKeyId||
-oss.AccessKeySecret||
-oss.bucket_name||
-oss.endpoint||</string>
+|debug|是否开启debug模式（会弹出多余信息）|
+|keyword|自定义关键字启动万能图床|
+|favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里|
+|cos_bucket_name|腾讯云存储桶名称|
+|cos_is_cdn|是否使用cdn链接，前提是你开通了cdn|
+|cos_region|域名中的地域信息。枚举值参见 可用地域 文档，如：ap-beijing, ap-hongkong, eu-frankfurt 等|
+|cos_secret_id|开发者拥有的项目身份识别 ID，用以身份认证|
+|cos_secret_key|开发者拥有的项目身份密钥|
+|oss.AccessKeyId|开发者拥有的项目身份识别 ID，用以身份认证|
+|oss.AccessKeySecret|开发者拥有的项目身份密钥|
+|oss.bucket_name||
+|oss.endpoint||</string>
 	<key>uidata</key>
 	<dict>
 		<key>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</key>
@@ -490,29 +490,29 @@ oss.endpoint||</string>
 	<key>variables</key>
 	<dict>
 		<key>cos_bucket_name</key>
-		<string></string>
+		<string>wntc-1251220317</string>
 		<key>cos_is_cdn</key>
 		<string>true</string>
 		<key>cos_region</key>
 		<string>ap-shanghai</string>
 		<key>cos_secret_id</key>
-		<string></string>
+		<string>AKIDurgMrBPF9vgFdpcyytdExX3S0ZBc3uNt</string>
 		<key>cos_secret_key</key>
-		<string></string>
+		<string>gFnEUaUCicQ6as0GtcDctz1sqfcOIBxc</string>
 		<key>debug</key>
-		<string>False</string>
+		<string>false</string>
 		<key>favor_yun</key>
-		<string>oss</string>
+		<string>cos</string>
 		<key>keyword</key>
 		<string>wntc</string>
 		<key>oss.AccessKeyId</key>
-		<string></string>
+		<string>a0yPloym0g6sXsyC</string>
 		<key>oss.AccessKeySecret</key>
-		<string></string>
+		<string>cVm1WlvFNueSSEsIg9qQ3ORzQw6wwa</string>
 		<key>oss.bucket_name</key>
-		<string></string>
+		<string>wntc</string>
 		<key>oss.endpoint</key>
-		<string></string>
+		<string>oss-cn-shanghai.aliyuncs.com</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
@@ -520,8 +520,6 @@ oss.endpoint||</string>
 		<string>cos_bucket_name</string>
 		<string>oss.AccessKeyId</string>
 		<string>oss.AccessKeySecret</string>
-		<string>oss.endpoint</string>
-		<string>oss.bucket_name</string>
 		<string>cos_secret_key</string>
 	</array>
 	<key>version</key>

@@ -3,6 +3,10 @@ import os
 import pip
 import imp
 import requests
+from qcloud_cos import CosConfig
+from qcloud_cos import CosS3Client
+
+debug = os.getenv('debug')=="true" and True or False
 
 """
 oss 阿里云配置
@@ -12,7 +16,15 @@ AccessKeySecret = os.getenv('oss.AccessKeySecret')
 bucket_name = os.getenv('oss.bucket_name')
 endpoint = os.getenv('oss.endpoint')
 endpointurl = "http://%s" % endpoint
-debug = os.getenv('debug')=="True" and True or False
+"""
+cos 腾讯云配置
+"""
+cos_bucket_name = os.getenv('cos_bucket_name')
+cos_is_cdn = os.getenv('cos_is_cdn')
+cos_region = os.getenv('cos_region')
+cos_secret_id = os.getenv('cos_secret_id')
+cos_secret_key = os.getenv('cos_secret_key')
+
 
 def notice(msg, title="【万能图床】提示", subtitle=''):
     ''' notoce message in notification center'''
@@ -53,7 +65,7 @@ def getAllConfiged():
         list.append('cos')
     return list
 
-
+"""检查阿里云云配置是否配全"""
 def checkOssConfig():
     if (AccessKeyId is not None
             and AccessKeySecret is not None
@@ -64,13 +76,8 @@ def checkOssConfig():
     else:
         return False
 
-
+"""检查腾讯云配置是否配全"""
 def checkCosConfig():
-    cos_bucket_name = os.getenv('cos_bucket_name')
-    cos_is_cdn = os.getenv('cos_is_cdn')
-    cos_region = os.getenv('cos_region')
-    cos_secret_id = os.getenv('cos_secret_id')
-    cos_secret_key = os.getenv('cos_secret_key')
     if (cos_bucket_name is not None
             and cos_is_cdn is not None
             and cos_region is not None
@@ -98,8 +105,38 @@ def uploadOssObj(objtype, name, obj):
     elif 'url' == objtype:
         input = requests.get(obj)
         bucket.put_object(name, input)
+    else:
+        if debug: notice("阿里云不支持【%s】上传" % objtype)
+
 def getOssMKurl(upload_name):
     return '![](http://%s.%s/%s)' % (bucket_name,endpoint,upload_name)
+
+"""
+上传到腾讯云
+"""
+def uploadCosObj(objtype, name, obj):
+    token = ''
+    config = CosConfig(Region=cos_region, Secret_id=cos_secret_id, Secret_key=cos_secret_key, Token=token)
+    # 2. 获取客户端对象
+    client = CosS3Client(config)
+    if debug: notice("上传到腾讯云！%s" % ( cos_bucket_name))
+    if ('localfile' == objtype):
+        response = client.put_object_from_local_file(
+            Bucket=cos_bucket_name,
+            LocalFilePath=obj,
+            Key=name,
+        )
+        if debug: notice("上传到腾讯云返回：%s" % (response))
+    elif 'url' == objtype:
+        if debug: notice("腾讯云不支持url上传" )
+    else:
+        if debug: notice("腾讯云不支持【%s】上传" % objtype)
+
+def getCosMKurl(upload_name):
+    if 'true' == cos_is_cdn:
+        return '![](http://%s.cossh.myqcloud.com/%s)' % (cos_bucket_name,upload_name)
+    else:
+        return '![](http://%s.file.myqcloud.com/%s)' % (cos_bucket_name,upload_name)
 
 if __name__ == "__main__":
     try:

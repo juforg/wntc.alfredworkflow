@@ -2,17 +2,17 @@
 from clipboard import get_paste_img_file
 from util import *
 import os
-import subprocess
 import sys
 import time
 
-debug = os.getenv('debug')=="True" and True or False
+debug = os.getenv('debug')=="true" and True or False
 favor_yun = os.getenv('favor_yun') ##优先云代码
 vardate = time.strftime('%Y/%-m/%-d',time.localtime(time.time()))
 yuncode = ''  #指定云代码
 upload_name='' #上传文件名
 yuncodelist = [] #有效云code
 markdown_url = '' # 最终在剪贴板中的url
+url_dict = {}
 
 if len(sys.argv) > 1 and sys.argv[1]:
     yuncode = sys.argv[1]
@@ -36,10 +36,18 @@ else:
         for i in yuncodelist:
             if 'oss' == i:
                 uploadOssObj('localfile',upload_name,img_file.name)
-                if favor_yun and favor_yun == 'oss':
-                    markdown_url = getOssMKurl(upload_name)
+                url_dict['oss'] = getOssMKurl(upload_name)
+            elif 'cos' ==i:
+                uploadCosObj('localfile',upload_name,img_file.name)
+                url_dict['cos'] = getCosMKurl(upload_name)
             else:
                 if debug: notice("该云尚未实现！%s" % i)
+        if url_dict:
+            if favor_yun and url_dict.has_key(favor_yun):
+                markdown_url = url_dict[favor_yun]
+            else:
+                markdown_url = url_dict.values()[0]
+
         if markdown_url:
             os.system("echo '%s' | pbcopy" % markdown_url)
             sys.stdout.write(markdown_url)

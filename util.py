@@ -21,10 +21,25 @@ cos 腾讯云配置
 """
 cos_bucket_name = os.getenv('cos_bucket_name')
 cos_is_cdn = os.getenv('cos_is_cdn')
+cos_cdn_domain = os.getenv('cos_cdn_domain')
 cos_region = os.getenv('cos_region')
 cos_secret_id = os.getenv('cos_secret_id')
 cos_secret_key = os.getenv('cos_secret_key')
-
+"""
+imgur 配置
+"""
+imgur_client_id = os.getenv('imgur_client_id')
+imgur_client_secret = os.getenv('imgur_client_secret')
+imgur_access_token = os.getenv('imgur_access_token')
+imgur_refresh_token = os.getenv('imgur_refresh_token')
+imgur_use = os.getenv('imgur_use')
+imgur_album = os.getenv('imgur_album')
+porxyconf = os.getenv('porxyconf')
+PROXY_LIST = {
+    'http': porxyconf ,
+    'https': porxyconf
+}
+credentials= []
 
 def notice(msg, title="【万能图床】提示", subtitle=''):
     ''' notoce message in notification center'''
@@ -48,12 +63,14 @@ def checkConfig(yuncode):
         return checkOssConfig()
     elif yuncode == 'cos':
         return checkCosConfig()
+    elif yuncode == 'imgur':
+        return checkImgurConfig()
     else:
         return False
 
 
 """
-获取所以配置正确的云code
+获取所有配置正确的云code
 """
 
 
@@ -63,6 +80,8 @@ def getAllConfiged():
         list.append('oss')
     if (checkCosConfig()):
         list.append('cos')
+    if (checkImgurConfig()):
+        list.append('imgur')
     return list
 
 """检查阿里云云配置是否配全"""
@@ -83,6 +102,18 @@ def checkCosConfig():
             and cos_region is not None
             and cos_secret_id is not None
             and cos_secret_key is not None
+    ):
+        return True
+    else:
+        return False
+"""检查imgur配置是否配全"""
+def checkImgurConfig():
+    if (((imgur_use is not None
+            and imgur_use == 'true' )or imgur_use is None)
+            and imgur_client_id is not None
+            and imgur_client_secret is not None
+            and imgur_access_token is not None
+            and imgur_refresh_token is not None
     ):
         return True
     else:
@@ -134,9 +165,42 @@ def uploadCosObj(objtype, name, obj):
 
 def getCosMKurl(upload_name):
     if 'true' == cos_is_cdn:
-        return '![](http://%s.cossh.myqcloud.com/%s)' % (cos_bucket_name,upload_name)
+        return '![](http://%s.%s/%s)' % (cos_bucket_name,cos_cdn_domain,upload_name)
     else:
         return '![](http://%s.file.myqcloud.com/%s)' % (cos_bucket_name,upload_name)
+
+"""
+上传到imgur
+"""
+def uploadImgurObj(objtype, name, obj):
+    from imgurpython import ImgurClient
+    import time
+    client = ImgurClient(imgur_client_id, imgur_client_secret,access_token=imgur_access_token,refresh_token=imgur_refresh_token,proxies=PROXY_LIST)
+    if debug: notice("上传到imgur！%s" % (imgur_album))
+    config = {
+        'album': imgur_album,
+        'name': name,
+        'title': name,
+        'description': '{0} 通过wntc万能图床上传 https://github.com/juforg/wntc.alfredworkflow'.format(time.strftime('%Y/%-m/%-d %H:%M:%S',time.localtime(time.time())))
+    }
+    if ('localfile' == objtype):
+        image = client.upload_from_path(obj, config=config, anon=False)
+        # print(json.dumps(image))
+        if debug: notice("上传到imgur返回：%s" % (response))
+    elif 'url' == objtype:
+        if debug: notice("imgur不支持url上传" )
+    else:
+        if debug: notice("imgur不支持【%s】上传" % objtype)
+
+    return '![](%s)' % (image['link'])
+
+
+def get_input(string):
+	''' Get input from console regardless of python 2 or 3 '''
+	try:
+		return raw_input(string)
+	except:
+		return input(string)
 
 if __name__ == "__main__":
     try:

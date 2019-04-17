@@ -8,8 +8,16 @@
 
 
 上传完成之后，返回的图片链接自动放入到系统剪切版中，可以直接使用`cmd + V` 使用。
+![](http://wntc-1251220317.cossh.myqcloud.com/2019/4/4/1554350660039.gif)
 
 ----
+## 支持列表
+- [X] 阿里云oss
+- [x] 腾讯云cos
+- [x] imgur
+- [ ] 七牛云
+- [ ] 坚果云
+
 
 ## 运行环境
 
@@ -33,6 +41,7 @@
 |favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里|
 |cos_bucket_name|腾讯云存储桶名称|
 |cos_is_cdn|是否使用cdn链接，前提是你开通了cdn|
+|cos_cdn_domain|开通了cdn的域名 如cossh.myqcloud.com|
 |cos_region|域名中的地域信息。枚举值参见 可用地域 文档，如：ap-beijing, ap-hongkong, eu-frankfurt 等|
 |cos_secret_id|开发者拥有的项目身份识别 ID，用以身份认证|
 |cos_secret_key|开发者拥有的项目身份密钥|
@@ -40,6 +49,13 @@
 |oss.AccessKeySecret|开发者拥有的项目身份密钥|
 |oss.bucket_name||
 |oss.endpoint||
+|imgur_use|是否使用imgur（可选）因为需要翻墙速度慢大部分人默认可关闭  true/false|
+|imgur_client_id||
+|imgur_client_secret||
+|imgur_access_token||
+|imgur_refresh_token||
+|imgur_album|可选|
+|porxyconf|如：http://127.0.0.1:58555 代理设置 imgur可能需要翻墙|
 
 #### 腾讯云
 ![](http://wntc-1251220317.cossh.myqcloud.com/2018/8/9/1533800822447.png)
@@ -75,3 +91,15 @@ https://help.aliyun.com/document_detail/52834.html?spm=a2c4g.11186623.6.677.84qF
 ## TODO
 - 选中任何文件即可上传到云上
 - 增加 七牛云、坚果云等
+
+## 版本
+###v1.1
+- 增加imgur支持
+- 增加cos的cdn域名自定义
+###v1.0
+- 增加腾讯云cos
+###v0.1
+-  可以使用阿里云oss
+
+## 鸣谢
+ - https://github.com/Imgur/imgurpython

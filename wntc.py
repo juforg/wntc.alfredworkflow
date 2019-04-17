@@ -10,7 +10,7 @@ favor_yun = os.getenv('favor_yun') ##优先云代码
 vardate = time.strftime('%Y/%-m/%-d',time.localtime(time.time()))
 yuncode = ''  #指定云代码
 upload_name='' #上传文件名
-yuncodelist = [] #有效云code
+yuncodelist = [] #有效云code 都会上传
 markdown_url = '' # 最终在剪贴板中的url
 url_dict = {}
 
@@ -40,6 +40,8 @@ else:
             elif 'cos' ==i:
                 uploadCosObj('localfile',upload_name,img_file.name)
                 url_dict['cos'] = getCosMKurl(upload_name)
+            elif 'imgur' == i:
+                url_dict['imgur'] = uploadImgurObj('localfile',upload_name,img_file.name)
             else:
                 if debug: notice("该云尚未实现！%s" % i)
         if url_dict:

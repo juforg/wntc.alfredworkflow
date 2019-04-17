@@ -394,7 +394,7 @@ if l.__len__() &gt;0:
 
 |debug|是否开启debug模式（会弹出多余信息）|
 |keyword|自定义关键字启动万能图床|
-|favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里|
+|favor_yun|如果配置了多个云，配置该项会将该项的url拷贝到剪贴板里，可选配置：oss,cos,imgur|
 |cos_bucket_name|腾讯云存储桶名称|
 |cos_is_cdn|是否使用cdn链接，前提是你开通了cdn|
 |cos_region|域名中的地域信息。枚举值参见 可用地域 文档，如：ap-beijing, ap-hongkong, eu-frankfurt 等|
@@ -403,7 +403,14 @@ if l.__len__() &gt;0:
 |oss.AccessKeyId|开发者拥有的项目身份识别 ID，用以身份认证|
 |oss.AccessKeySecret|开发者拥有的项目身份密钥|
 |oss.bucket_name||
-|oss.endpoint||</string>
+|oss.endpoint||
+|imgur_use|是否使用imgur（可选）因为需要翻墙速度慢大部分人默认可关闭  true/false|
+|imgur_client_id||
+|imgur_client_secret||
+|imgur_access_token||
+|imgur_refresh_token||
+|imgur_album|可选|
+|porxyconf|如：http://127.0.0.1:58555 代理设置 imgur可能需要翻墙|</string>
 	<key>uidata</key>
 	<dict>
 		<key>1B8C5911-370C-4CC5-9D1A-AC88FB9BB559</key>
@@ -491,6 +498,8 @@ if l.__len__() &gt;0:
 	<dict>
 		<key>cos_bucket_name</key>
 		<string>wntc-1251220317</string>
+		<key>cos_cdn_domain</key>
+		<string>cossh.myqcloud.com</string>
 		<key>cos_is_cdn</key>
 		<string>true</string>
 		<key>cos_region</key>
@@ -503,6 +512,16 @@ if l.__len__() &gt;0:
 		<string>false</string>
 		<key>favor_yun</key>
 		<string>cos</string>
+		<key>imgur_access_token</key>
+		<string>9ac4a950705753af07916e0e090a6db8af6229ae</string>
+		<key>imgur_client_id</key>
+		<string>4006e10bc9bfa9d</string>
+		<key>imgur_client_secret</key>
+		<string>9cc6f213b55cf5678b999e4c0fcf1f9f8788de11</string>
+		<key>imgur_refresh_token</key>
+		<string>8e1a904b3c6857935522266a8143a65cb87b958a</string>
+		<key>imgur_use</key>
+		<string>false</string>
 		<key>keyword</key>
 		<string>wntc</string>
 		<key>oss.AccessKeyId</key>
@@ -513,14 +532,20 @@ if l.__len__() &gt;0:
 		<string>wntc</string>
 		<key>oss.endpoint</key>
 		<string>oss-cn-shanghai.aliyuncs.com</string>
+		<key>porxyconf</key>
+		<string>http://127.0.0.1:58555</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
-		<string>cos_secret_id</string>
-		<string>cos_bucket_name</string>
+		<string>imgur_client_id</string>
 		<string>oss.AccessKeyId</string>
+		<string>cos_bucket_name</string>
+		<string>imgur_client_secret</string>
+		<string>imgur_refresh_token</string>
 		<string>oss.AccessKeySecret</string>
+		<string>cos_secret_id</string>
 		<string>cos_secret_key</string>
+		<string>imgur_access_token</string>
 	</array>
 	<key>version</key>
 	<string>0.0.1</string>
